@@ -6,7 +6,7 @@ export class CustomerService {
   constructor(private readonly customerRepository: CustomerRepository) {}
 
   async getCostumerById(CustomerId: string): Promise<Customer> {
-    return this.customerRepository.findOne({ CustomerId });
+    return this.customerRepository.findOne({ _id: CustomerId });
   }
 
   async getAllCostumers(): Promise<Customer[]> {
@@ -22,7 +22,7 @@ export class CustomerService {
     customerUpdates: Partial<Customer>,
   ): Promise<Customer> {
     return this.customerRepository.findOneAndUpdate(
-      { customerId },
+      { _id: customerId },
       customerUpdates,
     );
   }

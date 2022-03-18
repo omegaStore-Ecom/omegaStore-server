@@ -13,7 +13,7 @@ export class Customer {
   lastName: string;
 
   @Prop()
-  email: number;
+  email: string;
 
   @Prop()
   role: string;

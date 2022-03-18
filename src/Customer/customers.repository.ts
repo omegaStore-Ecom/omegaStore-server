@@ -27,6 +27,8 @@ export class CustomerRepository {
     customerFilterQuery: FilterQuery<Customer>,
     customer: Partial<Customer>,
   ): Promise<Customer> {
-    return this.customerModel.findOneAndUpdate(customerFilterQuery, customer);
+    return this.customerModel.findOneAndUpdate(customerFilterQuery, customer, {
+      new: true,
+    });
   }
 }

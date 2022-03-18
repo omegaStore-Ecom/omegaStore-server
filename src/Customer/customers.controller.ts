@@ -10,7 +10,7 @@ export class CustomersController {
     return this.customerService.getAllCostumers();
   }
 
-  @Get(':id')
+  @Get('/:id')
   async getCustomerById(@Param('id') id: string): Promise<Customer> {
     return this.customerService.getCostumerById(id);
   }
