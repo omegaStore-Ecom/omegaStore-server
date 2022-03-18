@@ -4,7 +4,11 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
-  imports: [MongooseModule.forRoot('mongodb://localhost/nest')],
+  imports: [
+    MongooseModule.forRoot(
+      'mongodb+srv://redroot:pwd1234@omegastore.lqtg0.mongodb.net/omegastore?retryWrites=true&w=majority',
+    ),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
