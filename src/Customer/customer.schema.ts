@@ -1,46 +1,41 @@
-/* eslint-disable prettier/prettier */
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
 
 export type CustomerDocument = Customer & Document;
 
 @Schema()
 export class Customer {
-  @Prop()
+  @Prop({ required: true })
   firstName: string;
 
-  @Prop()
+  @Prop({ required: true })
   lastName: string;
 
-  @Prop()
+  @Prop({ required: true })
   email: string;
 
-  @Prop()
-  role: string;
-
-  @Prop()
-  phone: number;
-
-  @Prop()
+  @Prop({ required: true })
   password: string;
 
-  @Prop()
-  Country: string;
+  @Prop({ required: true })
+  phone: string;
 
-  @Prop()
+  @Prop({ required: true })
   address: string;
 
   @Prop()
   second_address: string;
 
-  @Prop()
+  @Prop({ required: true })
   city: string;
 
-  @Prop()
-  postal_code: string;
+  @Prop({ required: true })
+  zip: string;
 
-  @Prop([String])
-  command: [string];
+  @Prop({ required: true })
+  country: string;
+
+  @Prop()
+  createdAt: Date;
 }
 
 export const CustomerSchema = SchemaFactory.createForClass(Customer);
