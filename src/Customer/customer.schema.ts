@@ -36,6 +36,9 @@ export class Customer {
 
   @Prop()
   createdAt: Date;
+
+  @Prop([String])
+  command: [string];
 }
 
 export const CustomerSchema = SchemaFactory.createForClass(Customer);
