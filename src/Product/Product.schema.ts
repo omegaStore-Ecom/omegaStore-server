@@ -5,7 +5,7 @@ export type ProductDocument = Product & Document;
 @Schema()
 export class Product {
   @Prop({ required: true })
-  productName: string;
+  name: string;
 
   @Prop({ required: true })
   price: number;
@@ -19,7 +19,7 @@ export class Product {
   @Prop({ required: true })
   category: string;
 
-  @Prop()
+  @Prop({ required: true })
   createdAt: Date;
 }
 
