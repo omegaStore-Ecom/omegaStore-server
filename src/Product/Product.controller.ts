@@ -63,6 +63,8 @@ export class ProductsController {
         productPrice,
         productDescription,
         productCategory,
+        productBrand,
+        productStatus,
         productQuantity,
       } = product;
 
@@ -72,6 +74,8 @@ export class ProductsController {
         productDescription,
         productCategory,
         productQuantity,
+        productBrand,
+        productStatus,
         productImage: images,
       });
       return res.status(200).json({ message: 'Product created successfully' });

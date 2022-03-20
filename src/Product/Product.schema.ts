@@ -21,6 +21,12 @@ export class Product {
 
   @Prop({ required: true })
   productImage: [string];
+
+  @Prop({ type: Boolean, default: true })
+  productStatus?: string;
+
+  @Prop()
+  productBrand: string;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
