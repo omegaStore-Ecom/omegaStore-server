@@ -12,9 +12,10 @@ import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      'mongodb+srv://redroot:pwd1234@omegastore.lqtg0.mongodb.net/omegastore?retryWrites=true&w=majority',
-    ),
+    MongooseModule.forRoot('mongodb://localhost/dd'),
+    // MongooseModule.forRoot(
+    //   'mongodb+srv://redroot:pwd1234@omegastore.lqtg0.mongodb.net/omegastore?retryWrites=true&w=majority',
+    // ),
     MulterModule.registerAsync({
       useFactory: () => ({
         dest: './upload',

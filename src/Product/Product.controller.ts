@@ -12,6 +12,11 @@ import {
 } from '@nestjs/common';
 import { Product } from './Product.schema';
 import { FilesInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { editFileName, imageFileFilter } from 'src/utils/file-uploading.utils';
+
+// TODO refactore this function
+
 @Controller('Products')
 export class ProductsController {
   constructor(private readonly productService: ProductService) {}
@@ -37,15 +42,39 @@ export class ProductsController {
   }
 
   @Post()
-  @UseInterceptors(FilesInterceptor('images'))
+  @UseInterceptors(
+    //Todo : limit the uploaded image count depend on seller rank
+    FilesInterceptor('productImage', 20, {
+      storage: diskStorage({
+        destination: './upload',
+        filename: editFileName,
+      }),
+      fileFilter: imageFileFilter,
+    }),
+  )
   async create(
     @Res() res,
     @Body() product: Product,
-    @UploadedFiles() images: Array<Express.Multer.File>,
+    @UploadedFiles() images,
   ): Promise<Product> {
     try {
-      // const createdProduct = await this.productService.create(product);
-      return res.status(201).json({ images });
+      const {
+        productName,
+        productPrice,
+        productDescription,
+        productCategory,
+        productQuantity,
+      } = product;
+
+      await this.productService.create({
+        productName,
+        productPrice,
+        productDescription,
+        productCategory,
+        productQuantity,
+        productImage: images,
+      });
+      return res.status(200).json({ message: 'Product created successfully' });
     } catch (error) {
       return res.status(400).json({ error: error.message });
     }

@@ -5,22 +5,22 @@ export type ProductDocument = Product & Document;
 @Schema()
 export class Product {
   @Prop({ required: true })
-  name: string;
+  productName: string;
 
   @Prop({ required: true })
-  price: number;
+  productPrice: number;
 
   @Prop({ required: true })
-  description: string;
-
-  @Prop([{ type: String, required: true }])
-  image: [string];
+  productDescription: string;
 
   @Prop({ required: true })
-  category: string;
+  productQuantity: number;
 
   @Prop({ required: true })
-  createdAt: Date;
+  productCategory: string;
+
+  @Prop({ required: true })
+  productImage: [string];
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
