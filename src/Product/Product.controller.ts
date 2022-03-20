@@ -1,6 +1,17 @@
 import { ProductService } from './Product.service';
-import { Controller, Get, Post, Res, Param, Body, Put } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Res,
+  Param,
+  Body,
+  Put,
+  UploadedFiles,
+  UseInterceptors,
+} from '@nestjs/common';
 import { Product } from './Product.schema';
+import { FilesInterceptor } from '@nestjs/platform-express';
 @Controller('Products')
 export class ProductsController {
   constructor(private readonly productService: ProductService) {}
@@ -26,10 +37,15 @@ export class ProductsController {
   }
 
   @Post()
-  async create(@Res() res, @Body() product: Product): Promise<Product> {
+  @UseInterceptors(FilesInterceptor('images'))
+  async create(
+    @Res() res,
+    @Body() product: Product,
+    @UploadedFiles() images: Array<Express.Multer.File>,
+  ): Promise<Product> {
     try {
-      const createdProduct = await this.productService.create(product);
-      return res.status(201).json({ createdProduct });
+      // const createdProduct = await this.productService.create(product);
+      return res.status(201).json({ images });
     } catch (error) {
       return res.status(400).json({ error: error.message });
     }
