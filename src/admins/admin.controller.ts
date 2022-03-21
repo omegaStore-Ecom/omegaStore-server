@@ -1,29 +1,59 @@
-import { Controller, Get, Post, Body, Put, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Res } from '@nestjs/common';
+import { Admin, AdminDocument } from 'src/schemas/admin.schema';
 import { AdminService } from './admin.service';
-import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
+import { AuthService } from 'src/auth/auth.service';
+import { LoginDTO } from './../auth/login.dto';
 
 @Controller('Admins')
 export class AdminController {
-  constructor(private readonly AdminsService: AdminService) {}
+  constructor(
+    private readonly adminsService: AdminService,
+    private authService: AuthService,
+  ) {}
 
-  @Post()
-  create(@Body() createAdminDto: CreateAdminDto) {
-    return this.AdminsService.create(createAdminDto);
+  @Post('register')
+  async create(@Body() admin: Admin) {
+    const newAdmin = this.adminsService.create(admin);
+    const payload = {
+      email: admin.email,
+    };
+
+    const token = await this.authService.signPayload(payload);
+    return {
+      token,
+      admin: newAdmin,
+    };
+  }
+
+  @Post('login')
+  async login(@Body() admin: Admin, @Res() res) {
+    const { email, password } = admin;
+    const existAdmin = await this.adminsService.findOne(email);
+
+    const payload = {
+      email: existAdmin.email,
+    };
+
+    const token = await this.authService.signPayload(payload);
+    return res.status(200).json({
+      token,
+      admin: existAdmin,
+    });
   }
 
   @Get()
   findAll() {
-    return this.AdminsService.findAll();
+    return this.adminsService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') name: string) {
-    return this.AdminsService.findOne(name);
+    return this.adminsService.findOne(name);
   }
 
   @Put(':id')
   update(@Param('id') name: string, @Body() updateAdminDto: UpdateAdminDto) {
-    return this.AdminsService.update(name, updateAdminDto);
+    return this.adminsService.update(name, updateAdminDto);
   }
 }
