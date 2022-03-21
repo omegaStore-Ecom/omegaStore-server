@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose/dist/mongoose.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AdminModule } from './admin/Admin.module';
@@ -9,6 +8,10 @@ import { DeliveryMenModule } from './deliveryMan/deliveryMan.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './role/role.guard';
 import { CustomerModule } from './customer/customer.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { MulterModule } from '@nestjs/platform-express';
+import { ProductsModule } from './products/products.module';
+import { DeliverymenModule } from './deliverymen/deliverymen.module';
 
 @Module({
   imports: [
@@ -18,10 +21,17 @@ import { CustomerModule } from './customer/customer.module';
       useUnifiedTopology: true,
       useCreateIndex: true,
     }),
+    MulterModule.registerAsync({
+      useFactory: () => ({
+        dest: './products/upload',
+      }),
+    }),
     AdminModule,
     GeneralAdminModule,
     DeliveryMenModule,
-    CustomerModule
+    CustomerModule,
+    ProductsModule,
+    DeliverymenModule,
   ],
   controllers: [AppController],
   providers: [
