@@ -26,8 +26,4 @@ export class AdminService {
   async update(name: string, updateAdminDto: UpdateAdminDto) {
     return this.AdminModel.updateOne({ name }, { $set: updateAdminDto });
   }
-
-  async remove(name: string) {
-    return this.AdminModel.deleteOne({ name });
-  }
 }

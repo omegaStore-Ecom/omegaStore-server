@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Put,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
@@ -25,18 +17,13 @@ export class AdminController {
     return this.AdminsService.findAll();
   }
 
-  @Get(':name')
-  findOne(@Param('name') name: string) {
+  @Get(':id')
+  findOne(@Param('id') name: string) {
     return this.AdminsService.findOne(name);
   }
 
-  @Put(':name')
-  update(@Param('name') name: string, @Body() updateAdminDto: UpdateAdminDto) {
+  @Put(':id')
+  update(@Param('id') name: string, @Body() updateAdminDto: UpdateAdminDto) {
     return this.AdminsService.update(name, updateAdminDto);
-  }
-
-  @Delete(':name')
-  remove(@Param('name') name: string) {
-    return this.AdminsService.remove(name);
   }
 }
