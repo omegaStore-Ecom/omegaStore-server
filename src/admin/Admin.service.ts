@@ -1,5 +1,6 @@
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { Model } from 'mongoose';
 import { Admin, AdminDocument } from './admin.schema';
 @Injectable()
@@ -8,7 +9,12 @@ export class AdminService {
     @InjectModel(Admin.name) private AdminModel: Model<AdminDocument>,
   ) {}
 
-  async create(Admin: Admin): Promise<AdminDocument> {
+  async register(Admin: Admin): Promise<AdminDocument> {
+    const newAdmin = new this.AdminModel(Admin);
+    return newAdmin.save();
+  }
+
+  async login(Admin: Admin): Promise<AdminDocument> {
     const newAdmin = new this.AdminModel(Admin);
     return newAdmin.save();
   }

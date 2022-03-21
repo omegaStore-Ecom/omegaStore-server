@@ -23,7 +23,7 @@ export class Product {
   productImage: [string];
 
   @Prop({ type: Boolean, default: true })
-  productStatus?: string;
+  productStatus?: boolean;
 
   @Prop()
   productBrand: string;
