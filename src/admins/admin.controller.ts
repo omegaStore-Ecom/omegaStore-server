@@ -14,7 +14,7 @@ export class AdminController {
 
   @Post('register')
   async create(@Body() admin: Admin) {
-    const newAdmin = this.adminsService.create(admin);
+    const newAdmin = await this.adminsService.create(admin);
     const payload = {
       email: admin.email,
     };
@@ -31,13 +31,13 @@ export class AdminController {
     const { email, password } = admin;
     const existAdmin = await this.adminsService.findOne(email);
 
-    const payload = {
-      email: existAdmin.email,
-    };
+    // const payload = {
+    //   email: existAdmin.email,
+    // };
 
-    const token = await this.authService.signPayload(payload);
+    // const token = await this.authService.signPayload(payload);
     return res.status(200).json({
-      token,
+      // token,
       admin: existAdmin,
     });
   }

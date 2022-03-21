@@ -13,4 +13,8 @@ import { AuthService } from 'src/auth/auth.service';
   providers: [AdminService, AuthService],
   exports: [AdminService],
 })
-export class AdminModule {}
+export class AdminModule {
+  findOne(email: string) {
+    throw new Error('Method not implemented.');
+  }
+}
