@@ -1,25 +1,25 @@
 import {
-  Body,
   Controller,
-  Delete,
   Get,
-  HttpStatus,
-  Param,
   Post,
-  Put,
+  Body,
+  Patch,
+  Param,
+  Delete,
   Res,
-  UploadedFiles,
+  HttpStatus,
   UseInterceptors,
+  UploadedFiles,
 } from '@nestjs/common';
-import { Product } from './product.schema';
-import { ProductService } from './product.service';
+import { ProductsService } from './products.service';
+import { Product } from 'src/schemas/product.schema';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { editFileName, imageFileFilter } from 'src/utils/file-uploading.utils';
 
-@Controller('Products')
-export class ProductController {
-  constructor(private readonly productService: ProductService) {}
+@Controller('products')
+export class ProductsController {
+  constructor(private readonly productsService: ProductsService) {}
 
   @Post()
   @UseInterceptors(
@@ -32,7 +32,7 @@ export class ProductController {
       fileFilter: imageFileFilter,
     }),
   )
-  async creatProduct(
+  async create(
     @Res() res,
     @Body() product: Product,
     @UploadedFiles() images,
@@ -49,7 +49,7 @@ export class ProductController {
         productQuantity,
       } = product;
 
-      await this.productService.create({
+      await this.productsService.create({
         productName,
         productPrice,
         productDescription,
@@ -68,9 +68,9 @@ export class ProductController {
   }
 
   @Get()
-  async fetchAll(@Res() res): Promise<Product[]> {
+  async findAll(@Res() res): Promise<Product[]> {
     try {
-      const products = await this.productService.readAll();
+      const products = await this.productsService.findAll();
       return res.status(HttpStatus.OK).json({
         products,
       });
@@ -79,10 +79,10 @@ export class ProductController {
     }
   }
 
-  @Get('/:id')
-  async findById(@Res() res, @Param('id') id: string) {
+  @Get(':id')
+  async findOne(@Res() res, @Param('id') id: string) {
     try {
-      const product = await this.productService.readById(id);
+      const product = await this.productsService.findOne(id);
       return res.status(HttpStatus.OK).json({
         product,
       });
@@ -91,14 +91,14 @@ export class ProductController {
     }
   }
 
-  @Put('/:id')
+  @Patch(':id')
   async update(
     @Res() res,
     @Param('id') id: string,
     @Body() product: Product,
   ): Promise<Product> {
     try {
-      const updatedProduct = await this.productService.update(id, product);
+      const updatedProduct = await this.productsService.update(id, product);
       return res.status(HttpStatus.OK).json({
         updatedProduct,
       });
@@ -107,10 +107,10 @@ export class ProductController {
     }
   }
 
-  @Delete('/:id')
-  async delete(@Res() res, @Param('id') id: string) {
+  @Delete(':id')
+  async remove(@Res() res, @Param('id') id: string) {
     try {
-      const deletedProduct = await this.productService.delete(id);
+      const deletedProduct = await this.productsService.remove(id);
       return res.status(HttpStatus.OK).json({
         deletedProduct,
       });
