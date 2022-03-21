@@ -1,11 +1,7 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Product, ProductSchema } from './products/product.schema';
-import { ProductService } from './products/product.service';
-import { ProductController } from './products/product.controller';
 import { MulterModule } from '@nestjs/platform-express';
+import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [
@@ -18,9 +14,7 @@ import { MulterModule } from '@nestjs/platform-express';
         dest: './products/upload',
       }),
     }),
-    MongooseModule.forFeature([{ name: Product.name, schema: ProductSchema }]),
+    ProductsModule,
   ],
-  controllers: [AppController, ProductController],
-  providers: [AppService, ProductService],
 })
 export class AppModule {}
