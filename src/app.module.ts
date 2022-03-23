@@ -5,8 +5,8 @@ import { MongooseModule } from '@nestjs/mongoose/dist/mongoose.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AdminModule } from './admin/Admin.module';
-import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { GeneralAdminModule } from './generalAdmin/general.admin.module';
 
 @Module({
   imports: [
@@ -17,9 +17,7 @@ import { ConfigModule } from '@nestjs/config';
       useCreateIndex: true,
     }),
     AdminModule,
-    AuthModule,
-   
-
+    GeneralAdminModule,
   ],
   controllers: [AppController],
   providers: [AppService],

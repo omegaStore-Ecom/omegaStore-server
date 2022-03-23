@@ -8,43 +8,43 @@ import { Payload } from 'src/types/payload';
 import { LoginDTO } from './login.dto';
 
 @Injectable()
-export class AdminService {
-  constructor(@InjectModel('Admin') private AdminModel: Model<Admin> ) {}
+export class GeneralAdminService {
+  constructor(@InjectModel('GeneralAdmin') private GeneralAdminModel: Model<Admin> ) {}
 
   async create(RegisterDTO: RegisterDTO) {
     const { email } = RegisterDTO;
-    const Admin = await this.AdminModel.findOne({ email });
+    const Admin = await this.GeneralAdminModel.findOne({ email });
     if (Admin) {
-      throw new HttpException('Admin already exists', HttpStatus.BAD_REQUEST);
+      throw new HttpException('General Admin already exists', HttpStatus.BAD_REQUEST);
     }
 
-    const createdAdmin = new this.AdminModel(RegisterDTO);
+    const createdGAdmin = new this.GeneralAdminModel(RegisterDTO);
 
-    await createdAdmin.save();
-    return this.sanitizeAdmin(createdAdmin);
+    await createdGAdmin.save();
+    return this.sanitizeAdmin(createdGAdmin);
   }
   async findByPayload(payload: Payload) {
     const { email } = payload;
-    return await this.AdminModel.findOne({ email });
+    return await this.GeneralAdminModel.findOne({ email });
   }
 
   async findByLogin(AdminDTO: LoginDTO) {
     const { email, password } = AdminDTO;
-    const Admin = await this.AdminModel.findOne({ email });
-    if (!Admin) {
-      throw new HttpException('Admin doesnt exists', HttpStatus.BAD_REQUEST);
+    const GAdmin = await this.GeneralAdminModel.findOne({ email });
+    if (!GAdmin) {
+      throw new HttpException('General Admin doesnt exists', HttpStatus.BAD_REQUEST);
     }
     if (
-      (await bcrypt.compare(password, Admin.password)) &&
-      Admin.role === 'admin'
+      (await bcrypt.compare(password, GAdmin.password)) &&
+      GAdmin.role === 'GAdmin'
     ) {
-      return this.sanitizeAdmin(Admin);
+      return this.sanitizeAdmin(GAdmin);
     } else {
       throw new HttpException('invalid credential', HttpStatus.BAD_REQUEST);
     }
   }
-  sanitizeAdmin(Admin: Admin) {
-    const sanitized = Admin.toObject();
+  sanitizeAdmin(GAdmin: Admin) {
+    const sanitized = GAdmin.toObject();
     delete sanitized['password'];
     return sanitized;
   }
