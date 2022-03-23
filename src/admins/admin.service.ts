@@ -4,12 +4,14 @@ import { Model } from 'mongoose';
 import { Admin } from 'src/schemas/admin.schema';
 import { UpdateAdminDto } from './dto/update-admin.dto';
 import { AuthService } from 'src/auth/auth.service';
+import { AtStrategy } from './../auth/local.strategy';
 
 @Injectable()
 export class AdminService {
   constructor(
     @InjectModel(Admin.name) private AdminModel: Model<Admin>,
     private authService: AuthService,
+    private atStrategy: AtStrategy,
   ) {}
 
   // admin register
@@ -25,6 +27,7 @@ export class AdminService {
     const newAdmin = await this.AdminModel.create(admin);
     const payload = {
       email: admin.email,
+      role: admin.role,
     };
 
     const token = await this.authService.signPayload(payload);
@@ -48,9 +51,12 @@ export class AdminService {
     const existAdmin = await this.AdminModel.findOne({ email });
     const payload = {
       email: existAdmin.email,
+      role: existAdmin.role,
     };
 
     const token = await this.authService.signPayload(payload);
+    await this.atStrategy.validate(token);
+    // const token = await this.atStrategy.validate(payload);
     return res.status(200).json({
       token,
       admin: existAdmin,

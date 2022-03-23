@@ -21,7 +21,7 @@ export class Admin {
   @Prop()
   password: string;
 
-  @Prop()
+  @Prop({ default: 'admin' })
   role: string;
 }
 

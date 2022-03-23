@@ -7,6 +7,6 @@ export class AuthService {
   constructor() {}
 
   async signPayload(payload: any) {
-    return sign(payload, 'secret', { expiresIn: '7d' });
+    return sign(payload, 'secret', { expiresIn: '1h' });
   }
 }

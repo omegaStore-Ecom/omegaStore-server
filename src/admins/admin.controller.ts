@@ -1,8 +1,19 @@
-import { Controller, Get, Post, Body, Put, Param, Res } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Put,
+  Param,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { Admin } from 'src/schemas/admin.schema';
 import { AdminService } from './admin.service';
 import { UpdateAdminDto } from './dto/update-admin.dto';
 import { AuthService } from 'src/auth/auth.service';
+import { AtStrategy } from 'src/auth/Local.strategy';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('Admins')
 export class AdminController {
@@ -21,6 +32,7 @@ export class AdminController {
     return await this.adminsService.login(admin, res);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get()
   findAll() {
     return this.adminsService.findAll();
