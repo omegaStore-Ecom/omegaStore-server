@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { DeliverymenService } from './deliverymen.service';
 import { DeliverymenController } from './deliverymen.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Deliverymen, DeliverymenSchema } from 'src/schemas/deliverymen.schema';
+import { Deliverymen, DeliverymenSchema } from '../schemas/deliverymen.schema';
 
 @Module({
   imports: [

@@ -19,6 +19,7 @@ export class Deliverymen {
 
   @Prop()
   deliverymenPassword: string;
+  static deliverymenEmail: import('mongoose').NativeError;
 }
 
 export const DeliverymenSchema = SchemaFactory.createForClass(Deliverymen);

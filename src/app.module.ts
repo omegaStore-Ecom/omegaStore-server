@@ -12,6 +12,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { MulterModule } from '@nestjs/platform-express';
 import { ProductsModule } from './products/products.module';
 import { DeliverymenModule } from './deliverymen/deliverymen.module';
+import { AuthModule } from './auth/auth.module';
+import { SellersModule } from './sellers/sellers.module';
 
 @Module({
   imports: [
@@ -32,6 +34,8 @@ import { DeliverymenModule } from './deliverymen/deliverymen.module';
     CustomerModule,
     ProductsModule,
     DeliverymenModule,
+    AuthModule,
+    SellersModule,
   ],
   controllers: [AppController],
   providers: [

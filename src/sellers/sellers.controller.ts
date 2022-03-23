@@ -5,62 +5,61 @@ import {
   Body,
   Param,
   Delete,
+  UseInterceptors,
   Res,
   HttpStatus,
-  UseInterceptors,
-  UploadedFiles,
+  UploadedFile,
   Put,
 } from '@nestjs/common';
-import { ProductsService } from './products.service';
-import { Product } from 'src/schemas/product.schema';
+import { SellersService } from './sellers.service';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import { editFileName, imageFileFilter } from 'src/utils/file-uploading.utils';
+import { editFileName } from '../utils/file-uploading.utils';
+import { Seller } from '../schemas/sellerAuth.schema';
 
-@Controller('products')
-export class ProductsController {
-  constructor(private readonly productsService: ProductsService) {}
+@Controller('sellers')
+export class SellersController {
+  constructor(private readonly sellersService: SellersService) {}
 
   @Post()
   @UseInterceptors(
     //Todo : limit the uploaded image count depend on seller rank
-    FilesInterceptor('productImage', 20, {
+    FilesInterceptor('productImage', 1, {
       storage: diskStorage({
         destination: './upload',
         filename: editFileName,
       }),
-      fileFilter: imageFileFilter,
     }),
   )
   async create(
     @Res() res,
-    @Body() product: Product,
-    @UploadedFiles() images,
-  ): Promise<Product> {
+    @Body() seller: Seller,
+    @UploadedFile() files,
+  ): Promise<Seller> {
     try {
       //   const newProduct = await this.productService.create(product);
       const {
-        productName,
-        productPrice,
-        productDescription,
-        productCategory,
-        productBrand,
-        productStatus,
-        productQuantity,
-      } = product;
+        sellerFirstName,
+        sellerLastName,
+        sellerEmail,
+        sellerPassword,
+        sellerRole,
+        sellerType,
+        sellerStatus,
+      } = seller;
 
-      await this.productsService.create({
-        productName,
-        productPrice,
-        productDescription,
-        productCategory,
-        productQuantity,
-        productBrand,
-        productStatus,
-        productImage: images,
+      await this.sellersService.create({
+        sellerFirstName,
+        sellerLastName,
+        sellerEmail,
+        sellerPassword,
+        sellerRole,
+        sellerType,
+        sellerStatus,
+        sellerFile: files,
       });
       return res.status(HttpStatus.CREATED).json({
-        message: 'Product created successfully',
+        message: 'seller created successfully',
       });
     } catch (error) {
       return res.status(400).json({ error: error.message });
@@ -68,11 +67,11 @@ export class ProductsController {
   }
 
   @Get()
-  async findAll(@Res() res): Promise<Product[]> {
+  async findAll(@Res() res): Promise<Seller[]> {
     try {
-      const products = await this.productsService.findAll();
+      const sellers = await this.sellersService.findAll();
       return res.status(HttpStatus.OK).json({
-        products,
+        sellers,
       });
     } catch (error) {
       return res.status(400).json({ error: error.message });
@@ -82,9 +81,9 @@ export class ProductsController {
   @Get(':id')
   async findOne(@Res() res, @Param('id') id: string) {
     try {
-      const product = await this.productsService.findOne(id);
+      const seller = await this.sellersService.findOne(id);
       return res.status(HttpStatus.OK).json({
-        product,
+        seller,
       });
     } catch (error) {
       return res.status(400).json({ error: error.message });
@@ -95,12 +94,12 @@ export class ProductsController {
   async update(
     @Res() res,
     @Param('id') id: string,
-    @Body() product: Product,
-  ): Promise<Product> {
+    @Body() product: Seller,
+  ): Promise<Seller> {
     try {
-      const updatedProduct = await this.productsService.update(id, product);
+      const updatedSeller = await this.sellersService.update(id, product);
       return res.status(HttpStatus.OK).json({
-        updatedProduct,
+        updatedSeller,
       });
     } catch (error) {
       return res.status(400).json({ error: error.message });
@@ -110,9 +109,9 @@ export class ProductsController {
   @Delete(':id')
   async remove(@Res() res, @Param('id') id: string) {
     try {
-      const deletedProduct = await this.productsService.remove(id);
+      const deletedSeller = await this.sellersService.remove(id);
       return res.status(HttpStatus.OK).json({
-        deletedProduct,
+        deletedSeller,
       });
     } catch (error) {
       return res.status(400).json({ error: error.message });

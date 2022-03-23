@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import {
   Deliverymen,
   DeliverymenDocument,
-} from 'src/schemas/deliverymen.schema';
+} from '../schemas/deliverymen.schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 
@@ -24,6 +24,10 @@ export class DeliverymenService {
 
   async findOne(id: string) {
     return await this.deliverymenModel.findById(id).exec();
+  }
+
+  async findByEmail(deliverymenEmail: Deliverymen) {
+    return await this.deliverymenModel.find(deliverymenEmail).exec();
   }
 
   async update(id: string, deliverymen: Deliverymen): Promise<Deliverymen> {

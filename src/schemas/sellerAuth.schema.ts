@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-export type SellerAuthDocument = SellerAuth & Document;
+export type SellerDocument = Seller & Document;
 
 @Schema()
-export class SellerAuth {
+export class Seller {
   @Prop()
   sellerFirstName: string;
 
@@ -20,8 +20,14 @@ export class SellerAuth {
   @Prop()
   sellerRole: string;
 
+  @Prop()
+  sellerType: string;
+
+  @Prop({ required: true })
+  sellerFile: string;
+
   @Prop({ type: Boolean, default: 'true' })
-  sellerAuthStatus: string;
+  sellerStatus: string;
 }
 
-export const SellerAuthSchema = SchemaFactory.createForClass(SellerAuth);
+export const SellerSchema = SchemaFactory.createForClass(Seller);
