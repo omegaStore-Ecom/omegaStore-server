@@ -1,12 +1,17 @@
 import { Injectable } from '@nestjs/common';
+import { Payload } from 'src/types/payload';
 import { sign } from 'jsonwebtoken';
-import { AdminService } from 'src/admins/admin.service';
+import { AdminService } from 'src/admin/Admin.service';
+
 @Injectable()
 export class AuthService {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  constructor() {}
 
-  async signPayload(payload: any) {
-    return sign(payload, 'secret', { expiresIn: '1h' });
+  constructor(private adminService: AdminService) {}
+  
+  async signPayload(payload: Payload) {
+    return sign(payload, process.env.SECRET_KEY, { expiresIn: '7d' });
+  }
+  async validateAdmin(payload: Payload) {
+    return await this.adminService.findByPayload(payload);
   }
 }
