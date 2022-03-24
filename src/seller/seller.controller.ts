@@ -36,7 +36,6 @@ export class SellerController {
 
   @Post('register')
   @UseInterceptors(
-    //Todo : limit the uploaded image count depend on seller rank
     FilesInterceptor('files',1, {
       storage: diskStorage({
         destination: './upload',
@@ -46,6 +45,7 @@ export class SellerController {
     }),
   )
   async register(
+
     @Res() res,
     @Body() registerDTO: Seller,
     @UploadedFiles() file,
