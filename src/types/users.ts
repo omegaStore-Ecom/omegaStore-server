@@ -17,3 +17,18 @@ export interface DeliveryMan extends Document {
   status: string;
   type: string;
 }
+
+export interface Customer extends Document {
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+  password: string;
+  role: string;
+  address_1: string;
+  address_2: string;
+  city: string;
+  state: string;
+  zip: string;
+  country: string;
+}

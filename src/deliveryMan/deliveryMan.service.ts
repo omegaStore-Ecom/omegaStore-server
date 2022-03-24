@@ -1,10 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { DeliveryMan } from 'src/types/users';
 import * as bcrypt from 'bcrypt';
 import { Payload } from 'src/types/payload';
 import { LoginDTO } from './login.dto';
+import { DeliveryMan } from 'src/types/users';
 
 @Injectable()
 export class DeliveryMenService {
