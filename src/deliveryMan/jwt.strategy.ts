@@ -13,15 +13,20 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: any, done: VerifiedCallback) {
-    const Admin = await this.deliveryManService.validateAdmin(payload);
-    if (!Admin) {
-      return done(
-        new HttpException('Unauthorized access', HttpStatus.UNAUTHORIZED),
-        false,
-      );
-    }
+  // async validate(payload: any, done: VerifiedCallback) {
+  //   const Admin = await this.deliveryManService.validateAdmin(payload);
+  //   if (!Admin) {
+  //     return done(
+  //       new HttpException('Unauthorized access', HttpStatus.UNAUTHORIZED),
+  //       false,
+  //     );
+  //   }
 
-    return done(null, Admin, payload.iat);
+  // return done(null, Admin, payload.iat);
+
+  // }
+
+   validate(payload: any) {
+    return payload;
   }
 }

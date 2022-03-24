@@ -21,20 +21,20 @@ import { DeliveryMan } from 'src/types/users';
 export class DeliveryManController {
   constructor(private readonly deliverymenService: DeliveryMenService) {}
 
-  // @Get('/onlyauthG')
-  // @Roles('admin')
-  // @UseGuards(AuthGuard('jwt'), RolesGuard)
-  // async hiddenInformation() {
-  //   return 'hidden information';
-  // }
+  @Get('/onlyauthG')
+  @Roles('admin')
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  async hiddenInformation() {
+    return 'hidden information';
+  }
 
   @Post('register')
   @Roles('admin')
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
   async register(@Body() registerDTO: DeliveryMan) {
     const GAdmin = await this.deliverymenService.create(registerDTO);
     const payload = {
       email: GAdmin.email,
+      role: GAdmin.role,
     };
 
     const token = await this.signPayload(payload);
@@ -42,11 +42,11 @@ export class DeliveryManController {
   }
 
   @Post('login')
-
   async login(@Body() loginDTO: LoginDTO) {
     const GAdmin = await this.deliverymenService.findByLogin(loginDTO);
     const payload = {
       email: GAdmin.email,
+      role: GAdmin.role,
     };
     const token = await this.signPayload(payload);
     return { GAdmin, token };
@@ -59,6 +59,8 @@ export class DeliveryManController {
   // crud
 
   @Get()
+  @Roles('GAdminddd')
+  @UseGuards(RolesGuard)
   async getALLDeliveryMen(@Res() res) {
     return this.deliverymenService.findAll(res);
   }

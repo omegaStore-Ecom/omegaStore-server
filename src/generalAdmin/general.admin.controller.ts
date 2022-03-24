@@ -11,18 +11,12 @@ import { LoginDTO } from './login.dto';
 export class GeneralAdminController {
   constructor(private readonly generalAdminService: GeneralAdminService) {}
 
-  @Get('/onlyauthG')
-  @Roles('GAdmin')
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
-  async hiddenInformation() {
-    return 'only admin can access this information';
-  }
-
   @Post('register')
   async register(@Body() registerDTO: RegisterDTO) {
     const GAdmin = await this.generalAdminService.create(registerDTO);
     const payload = {
       email: GAdmin.email,
+      role: GAdmin.role,
     };
 
     const token = await this.signPayload(payload);
@@ -34,6 +28,7 @@ export class GeneralAdminController {
     const GAdmin = await this.generalAdminService.findByLogin(loginDTO);
     const payload = {
       email: GAdmin.email,
+      role: GAdmin.role,
     };
     const token = await this.signPayload(payload);
     return { GAdmin, token };

@@ -23,6 +23,7 @@ export class AdminController {
     const Admin = await this.adminService.create(registerDTO);
     const payload = {
       email: Admin.email,
+      role: Admin.role,
     };
 
     const token = await this.signPayload(payload);
