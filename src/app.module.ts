@@ -9,6 +9,8 @@ import { DeliveryMenModule } from './deliveryMan/deliveryMan.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './role/role.guard';
 import { CustomerModule } from './customer/customer.module';
+import { SellerModule } from './seller/seller.module';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
@@ -18,10 +20,16 @@ import { CustomerModule } from './customer/customer.module';
       useUnifiedTopology: true,
       useCreateIndex: true,
     }),
+    MulterModule.registerAsync({
+      useFactory: () => ({
+        dest: './products/upload',
+      }),
+    }),
     AdminModule,
     GeneralAdminModule,
     DeliveryMenModule,
-    CustomerModule
+    CustomerModule,
+    SellerModule,
   ],
   controllers: [AppController],
   providers: [
