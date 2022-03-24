@@ -15,7 +15,7 @@ export class GeneralAdminController {
   @Roles('GAdmin')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   async hiddenInformation() {
-    return 'hidden information';
+    return 'only admin can access this information';
   }
 
   @Post('register')
