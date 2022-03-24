@@ -1,6 +1,5 @@
 import { Document } from 'mongoose';
 
-
 export interface Admin extends Document {
   role: string;
   email: string;
@@ -31,4 +30,22 @@ export interface Customer extends Document {
   state: string;
   zip: string;
   country: string;
+}
+
+export interface Seller extends Document {
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+  password: string;
+  role: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+  country: string;
+  status: string;
+  file: string;
+  type: string;
+  generatedIncome: string;
 }

@@ -27,19 +27,17 @@ export class RolesGuard implements CanActivate {
 
     const token = authHeader && authHeader.split(' ')[1];
     if (token == null) throw new UnauthorizedException('Null Access Token');
-    
-     const decoded = verify(token, `${process.env.SECRET_KEY}`);
-      // req.session = user; //User Session
-      /* Some extra validation here */
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore 
-      
-      // return (decoded.role == roles[0]);
-      // const user = req.user
-      // console.log(decoded.role == roles[0]);
-      return decoded?.role == roles[0];
-      
-    
+
+    const decoded = verify(token, `${process.env.SECRET_KEY}`);
+    // req.session = user; //User Session
+    /* Some extra validation here */
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    // return (decoded.role == roles[0]);
+    // const user = req.user
+    // console.log(decoded.role == roles[0]);
+    return decoded?.role == roles[0];
+
     // return true;
     // console.log(token);
   }
