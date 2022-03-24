@@ -17,6 +17,7 @@ import { LoginDTO } from './login.dto';
 import { DeliveryMenService } from './deliveryMan.service';
 import { DeliveryMan } from 'src/types/users';
 
+
 @Controller('deliveryMan')
 export class DeliveryManController {
   constructor(private readonly deliverymenService: DeliveryMenService) {}
@@ -59,7 +60,7 @@ export class DeliveryManController {
   // crud
 
   @Get()
-  @Roles('GAdminddd')
+  @Roles('admin')
   @UseGuards(RolesGuard)
   async getALLDeliveryMen(@Res() res) {
     return this.deliverymenService.findAll(res);

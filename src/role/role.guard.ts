@@ -34,10 +34,10 @@ export class RolesGuard implements CanActivate {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore 
       
-      return (decoded.role == roles[0]);
+      // return (decoded.role == roles[0]);
       // const user = req.user
       // console.log(decoded.role == roles[0]);
-      // return decoded?.role == roles[0];
+      return decoded?.role == roles[0];
       
     
     // return true;

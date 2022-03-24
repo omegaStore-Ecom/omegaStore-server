@@ -8,6 +8,7 @@ import { GeneralAdminModule } from './generalAdmin/general.admin.module';
 import { DeliveryMenModule } from './deliveryMan/deliveryMan.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './role/role.guard';
+import { CustomerModule } from './customer/customer.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { RolesGuard } from './role/role.guard';
     AdminModule,
     GeneralAdminModule,
     DeliveryMenModule,
+    CustomerModule
   ],
   controllers: [AppController],
   providers: [
