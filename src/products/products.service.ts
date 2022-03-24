@@ -1,12 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-<<<<<<< Updated upstream
-import { Product, ProductDocument } from 'src/schemas/product.schema';
-import { Model } from 'mongoose';
-=======
 import { Model } from 'mongoose';
 import { Product, ProductDocument } from '../models/product.schema';
->>>>>>> Stashed changes
 
 @Injectable()
 export class ProductsService {

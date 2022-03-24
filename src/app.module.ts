@@ -9,7 +9,6 @@ import { RolesGuard } from './role/role.guard';
 import { CustomerModule } from './customer/customer.module';
 import { APP_GUARD } from '@nestjs/core';
 import { MulterModule } from '@nestjs/platform-express';
-import { DeliverymenModule } from './deliverymen/deliverymen.module';
 import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose/dist/mongoose.module';
 import { ProductsModule } from './products/products.module';
