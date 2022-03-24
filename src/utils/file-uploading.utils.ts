@@ -11,8 +11,15 @@ export const editFileName = (req, file, callback) => {
 };
 
 export const imageFileFilter = (req, file, callback) => {
-  if (!file.originalname.match(/\.(pdf|docx)$/)) {
+  if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
     return callback(new Error('Only image files are allowed!'), false);
+  }
+  callback(null, true);
+};
+
+export const fileFilter = (req, file, callback) => {
+  if (!file.originalname.match(/\.(pdf|docx)$/)) {
+    return callback(new Error('Only pdf or docx files are allowed!'), false);
   }
   callback(null, true);
 };

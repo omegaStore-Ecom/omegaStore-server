@@ -12,6 +12,5 @@ import { DeliveryMenSchema } from 'src/models/deliveryMan.schema';
   ],
   providers: [DeliveryMenService, JwtStrategy],
   controllers: [DeliveryManController],
-  // exports: [GeneralAdminService],
 })
 export class DeliveryMenModule {}
