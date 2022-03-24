@@ -12,10 +12,18 @@ import {
   Put,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
+<<<<<<< Updated upstream
 import { Product } from 'src/schemas/product.schema';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { editFileName, imageFileFilter } from 'src/utils/file-uploading.utils';
+=======
+
+import { FilesInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { editFileName, imageFileFilter } from 'src/utils/file-uploading.utils';
+import { Product } from '../models/product.schema';
+>>>>>>> Stashed changes
 
 @Controller('products')
 export class ProductsController {

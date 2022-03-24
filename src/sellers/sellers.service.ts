@@ -1,7 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+<<<<<<< Updated upstream
 import { Seller, SellerDocument } from '../schemas/sellerAuth.schema';
+=======
+import { Seller, SellerDocument } from '../models/sellerAuth.schema';
+
+>>>>>>> Stashed changes
 
 @Injectable()
 export class SellersService {

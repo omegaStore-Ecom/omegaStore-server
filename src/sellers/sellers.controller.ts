@@ -15,7 +15,12 @@ import { SellersService } from './sellers.service';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { editFileName } from '../utils/file-uploading.utils';
+<<<<<<< Updated upstream
 import { Seller } from '../schemas/sellerAuth.schema';
+=======
+import { Seller } from '../models/sellerAuth.schema';
+
+>>>>>>> Stashed changes
 
 @Controller('sellers')
 export class SellersController {
