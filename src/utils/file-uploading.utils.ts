@@ -16,3 +16,10 @@ export const imageFileFilter = (req, file, callback) => {
   }
   callback(null, true);
 };
+
+export const fileFilter = (req, file, callback) => {
+  if (!file.originalname.match(/\.(pdf|docx)$/)) {
+    return callback(new Error('Only pdf or docx files are allowed!'), false);
+  }
+  callback(null, true);
+};

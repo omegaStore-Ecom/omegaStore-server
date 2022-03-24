@@ -10,6 +10,5 @@ import { SellerSchema } from 'src/models/seller.schema';
   ],
   providers: [SellerService],
   controllers: [SellerController],
-  // exports: [GeneralAdminService],
 })
 export class SellerModule {}

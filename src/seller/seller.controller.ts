@@ -20,29 +20,23 @@ import { LoginDTO } from './login.dto';
 import { SellerService } from './sellerservice';
 import { Seller } from 'src/types/users';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import { editFileName, imageFileFilter } from 'src/utils/file-uploading.utils';
+import { editFileName, fileFilter } from 'src/utils/file-uploading.utils';
 import { diskStorage } from 'multer';
 
 @Controller('seller')
 export class SellerController {
   constructor(private readonly sellerService: SellerService) {}
 
-  @Get('/onlyauthG')
-  @Roles('admin')
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
-  async hiddenInformation() {
-    return 'hidden information';
-  }
-
   @Post('register')
+  @Roles('GAdmin')
+  @UseGuards(RolesGuard)
   @UseInterceptors(
-    //Todo : limit the uploaded image count depend on seller rank
-    FilesInterceptor('files',1, {
+    FilesInterceptor('files', 1, {
       storage: diskStorage({
-        destination: './upload',
+        destination: './upload/sellerFiles',
         filename: editFileName,
       }),
-      fileFilter: imageFileFilter,
+      fileFilter: fileFilter,
     }),
   )
   async register(
@@ -50,7 +44,7 @@ export class SellerController {
     @Body() registerDTO: Seller,
     @UploadedFiles() file,
   ) {
-    const Seller = await this.sellerService.create(registerDTO , file , res);
+    const Seller = await this.sellerService.create(registerDTO, file, res);
     const payload = {
       email: Seller.email,
       role: Seller.role,
@@ -58,7 +52,6 @@ export class SellerController {
 
     const token = await this.signPayload(payload);
     return { Seller, token };
-
   }
 
   @Post('login')
@@ -79,7 +72,7 @@ export class SellerController {
   // crud
 
   @Get()
-  @Roles('admin')
+  @Roles('GAdmin')
   @UseGuards(RolesGuard)
   async getALLSeller(@Res() res) {
     return this.sellerService.findAll(res);
