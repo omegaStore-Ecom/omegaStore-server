@@ -1,0 +1,17 @@
+import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+import { JwtStrategy } from './jwt.strategy';
+import { DeliveryMenService } from './deliveryMan.service';
+import { DeliveryMenSchema } from 'src/models/deliveryMan.schema';
+import { DeliveryManController } from './deliveryMan.controller';
+@Module({
+  imports: [
+    MongooseModule.forFeature([
+      { name: 'DeliveryMan', schema: DeliveryMenSchema },
+    ]),
+  ],
+  providers: [DeliveryMenService, JwtStrategy],
+  controllers: [DeliveryManController],
+  // exports: [GeneralAdminService],
+})
+export class DeliveryMenModule {}
