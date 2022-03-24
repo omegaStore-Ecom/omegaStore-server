@@ -5,14 +5,14 @@ import { AdminModule } from './admin/Admin.module';
 import { ConfigModule } from '@nestjs/config';
 import { GeneralAdminModule } from './generalAdmin/general.admin.module';
 import { DeliveryMenModule } from './deliveryMan/deliveryMan.module';
-import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './role/role.guard';
 import { CustomerModule } from './customer/customer.module';
-import { MongooseModule } from '@nestjs/mongoose';
+import { APP_GUARD } from '@nestjs/core';
 import { MulterModule } from '@nestjs/platform-express';
-import { ProductsModule } from './products/products.module';
 import { DeliverymenModule } from './deliverymen/deliverymen.module';
 import { AuthModule } from './auth/auth.module';
+import { MongooseModule } from '@nestjs/mongoose/dist/mongoose.module';
+import { ProductsModule } from './products/products.module';
 import { SellersModule } from './sellers/sellers.module';
 
 @Module({
@@ -33,7 +33,6 @@ import { SellersModule } from './sellers/sellers.module';
     DeliveryMenModule,
     CustomerModule,
     ProductsModule,
-    DeliverymenModule,
     AuthModule,
     SellersModule,
   ],
