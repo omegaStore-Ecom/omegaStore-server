@@ -15,11 +15,13 @@ import { Product } from 'src/types/product';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { editFileName, imageFileFilter } from 'src/utils/file-uploading.utils';
 import { diskStorage } from 'multer';
+import { GetUser } from 'src/role/role.guard';
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Post()
+
   @UseInterceptors(
     FilesInterceptor('productImage', 20, {
       storage: diskStorage({
@@ -31,14 +33,12 @@ export class ProductController {
   )
   create(@Body() product, @Res() res, @UploadedFiles() images) {
     return this.productService.createProduct(product, res, images);
-    res.status(201).json({
-      product,
-    });
   }
 
   @Get()
-  async findAll(@Res() res) {
-    return await this.productService.findAll(res);
+  async findAll(@Res() res , @GetUser() user) {
+    // return await this.productService.findAll(res);
+    res.status(HttpStatus.OK).json({current: user});
   }
 
   @Get(':id')
