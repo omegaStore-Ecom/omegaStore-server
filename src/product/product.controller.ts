@@ -6,8 +6,11 @@ import {
   Param,
   Post,
   Put,
+  Req,
   Res,
   UploadedFiles,
+  UseGuards,
+  Delete,
   UseInterceptors,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
@@ -15,6 +18,8 @@ import { Product } from 'src/types/product';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { editFileName, imageFileFilter } from 'src/utils/file-uploading.utils';
 import { diskStorage } from 'multer';
+import { CurrentUser, Roles, RolesGuard } from 'src/role/role.guard';
+import { Seller } from 'src/types/users';
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
@@ -34,6 +39,8 @@ export class ProductController {
   }
 
   @Get()
+  // @Roles('seller')
+  // @UseGuards(RolesGuard)
   async findAll(@Res() res) {
     return await this.productService.findAll(res);
   }
@@ -51,11 +58,7 @@ export class ProductController {
   }
 
   @Put(':id')
-  async update(
-    @Res() res,
-    @Param('id') id: string,
-    @Body() product: Product,
-  ): Promise<Product> {
+  async update(@Res() res, @Param('id') id: string, @Body() product: any) {
     return await this.productService.updateProduct(id, product, res);
   }
 
@@ -76,8 +79,9 @@ export class ProductController {
   ) {
     return await this.productService.updateProductImage(id, images, res);
   }
-  @Put(':id/updateStatus')
-  async updateStatus(@Res() res, @Param('id') id: string) {
-    return await this.productService.updateProductStatus(id, res);
+
+  @Delete(':id')
+  async delete(@Res() res, @Param('id') id: string) {
+    return await this.productService.deleteProduct(id, res);
   }
 }

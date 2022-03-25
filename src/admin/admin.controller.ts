@@ -11,14 +11,9 @@ import { LoginDTO } from './login.dto';
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
-  @Get('/onlyauth')
-  @Roles('admin')
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
-  async hiddenInformation() {
-    return 'hidden information';
-  }
-
   @Post('register')
+  @Roles('GAdmin')
+  @UseGuards(RolesGuard)
   async register(@Body() registerDTO: RegisterDTO) {
     const Admin = await this.adminService.create(registerDTO);
     const payload = {

@@ -11,6 +11,5 @@ import { JwtStrategy } from './jwt.strategy';
   ],
   providers: [AdminService, JwtStrategy],
   controllers: [AdminController],
-  // exports: [AdminService],
 })
 export class AdminModule {}
