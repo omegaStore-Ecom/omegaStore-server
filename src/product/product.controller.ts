@@ -10,6 +10,7 @@ import {
   Res,
   UploadedFiles,
   UseGuards,
+  Delete,
   UseInterceptors,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
@@ -19,7 +20,6 @@ import { editFileName, imageFileFilter } from 'src/utils/file-uploading.utils';
 import { diskStorage } from 'multer';
 import { CurrentUser, Roles, RolesGuard } from 'src/role/role.guard';
 import { Seller } from 'src/types/users';
-import { verify } from 'jsonwebtoken';
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
@@ -79,8 +79,9 @@ export class ProductController {
   ) {
     return await this.productService.updateProductImage(id, images, res);
   }
-  @Put(':id/updateStatus')
-  async updateStatus(@Res() res, @Param('id') id: string) {
-    return await this.productService.updateProductStatus(id, res);
+
+  @Delete(':id')
+  async delete(@Res() res, @Param('id') id: string) {
+    return await this.productService.deleteProduct(id, res);
   }
 }

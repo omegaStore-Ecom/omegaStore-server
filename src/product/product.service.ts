@@ -85,37 +85,12 @@ export class ProductService {
     }
   }
 
-  async updateProductStatus(id, res) {
+  async deleteProduct(id, res) {
     try {
-      const product = await this.ProductModule.findById(id);
-      if (!product) {
-        return res.status(404).json({
-          message: 'Product not found',
-        });
-      }
-
-      product.productStatus == 'Available'
-        ? await this.ProductModule.findByIdAndUpdate(
-            id,
-            {
-              $set: {
-                status: 'notAvailable',
-              },
-            },
-            { new: true },
-          )
-        : await this.ProductModule.findByIdAndUpdate(
-            id,
-            {
-              $set: {
-                status: 'Available',
-              },
-            },
-            { new: true },
-          );
-
+      const deletedProduct = await this.ProductModule.findByIdAndDelete(id);
       return res.status(200).json({
-        message: 'Product has been successfully updated',
+        message: 'Product has been successfully deleted',
+        product: deletedProduct,
       });
     } catch (error) {
       return res.status(400).json({ error: error.message });
