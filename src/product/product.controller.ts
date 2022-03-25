@@ -31,9 +31,6 @@ export class ProductController {
   )
   create(@Body() product, @Res() res, @UploadedFiles() images) {
     return this.productService.createProduct(product, res, images);
-    res.status(201).json({
-      product,
-    });
   }
 
   @Get()

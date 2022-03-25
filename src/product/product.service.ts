@@ -51,11 +51,13 @@ export class ProductService {
 
   async updateProduct(id, product, res) {
     try {
+      // const existedProduct = new this.ProductModule(product)
       const updatedProduct = await this.ProductModule.findByIdAndUpdate(
         id,
         product,
         { new: true },
       );
+      console.log(updatedProduct, 'ppppppppppppppppppppppp');
       return res.status(200).json({
         message: 'Product has been successfully updated',
         product: updatedProduct,

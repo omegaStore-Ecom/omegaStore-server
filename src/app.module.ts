@@ -11,7 +11,6 @@ import { RolesGuard } from './role/role.guard';
 import { CustomerModule } from './customer/customer.module';
 import { SellerModule } from './seller/seller.module';
 import { MulterModule } from '@nestjs/platform-express';
-import { ProductController } from './product/product.controller';
 import { ProductModule } from './product/product.module';
 
 @Module({
