@@ -35,16 +35,13 @@ export class RolesGuard implements CanActivate {
   }
 }
 
-export const GetUser = createParamDecorator(
-  (ctx: ExecutionContext): Seller => {
-    const req = ctx.switchToHttp().getRequest();
-    const authHeader = req.headers['authorization'];
-
+export const CurrentUser = createParamDecorator(
+  (data: unknown, ctx: ExecutionContext) => {
+    const request = ctx.switchToHttp().getRequest();
+    const authHeader = request.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
-    if (token == null) throw new UnauthorizedException('Null Access Token');
     const decoded = verify(token, `${process.env.SECRET_KEY}`);
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+
     return decoded;
   },
 );

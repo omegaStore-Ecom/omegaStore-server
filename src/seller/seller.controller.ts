@@ -48,6 +48,7 @@ export class SellerController {
     const payload = {
       email: Seller.email,
       role: Seller.role,
+      type: Seller.type,
     };
 
     const token = await this.signPayload(payload);
@@ -60,6 +61,7 @@ export class SellerController {
     const payload = {
       email: Seller.email,
       role: Seller.role,
+      type: Seller.type,
     };
     const token = await this.signPayload(payload);
     return { Seller, token };
