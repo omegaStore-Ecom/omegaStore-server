@@ -1,10 +1,10 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
+import {InjectModel} from '@nestjs/mongoose';
+import {Model} from 'mongoose';
 import * as bcrypt from 'bcrypt';
-import { Payload } from 'src/types/payload';
-import { LoginDTO } from './login.dto';
-import { Seller } from 'src/types/users';
+import {Payload} from 'src/types/payload';
+import {LoginDTO} from './login.dto';
+import {Seller} from 'src/types/users';
 
 @Injectable()
 export class SellerService {
@@ -34,6 +34,10 @@ export class SellerService {
     }
   }
 
+  async findOne(id) {
+    return await this.SellerModel.findById(id);
+  }
+
   async update(id, seller, res) {
     try {
       const updatedSeller = await this.SellerModel.findByIdAndUpdate(
@@ -47,6 +51,16 @@ export class SellerService {
     } catch (error) {
       return res.status(400).json({ error: error.message });
     }
+  }
+
+  async updateProductLimit(id, res , inc) {
+
+      return this.SellerModel.findByIdAndUpdate(
+          id,
+          {$inc: {productLimit: inc}},
+          {new: true},
+      );
+  
   }
 
   async disableSeller(id, res) {
@@ -66,7 +80,7 @@ export class SellerService {
 
   async findByPayload(payload: Payload) {
     const { email } = payload;
-    return await this.SellerModel.findOne({ email });
+    return this.SellerModel.findOne({ email });
   }
 
   async findByLogin(seller: LoginDTO) {
