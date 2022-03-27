@@ -89,7 +89,7 @@ export class ProductController {
   }
 
   @Delete(':id')
-  async delete(@Res() res, @Param('id') id: string) {
-    return await this.productService.deleteProduct(id, res);
+  async delete(@Res() res, @Param('id') id: string , @CurrentUser() user) {
+    return await this.productService.deleteProduct(id, res, user);
   }
 }
