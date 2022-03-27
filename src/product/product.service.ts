@@ -44,7 +44,7 @@ export class ProductService {
     try {
       const product = await this.ProductModule.findById(id);
       if (!product) {
-        return res.status(404).json({
+         res.status(404).json({
           message: 'Product not found',
         });
       }
@@ -92,9 +92,10 @@ export class ProductService {
     }
   }
 
-  async deleteProduct(id, res) {
+  async deleteProduct(id, res , user) {
     try {
       const deletedProduct = await this.ProductModule.findByIdAndDelete(id);
+      await this.sellerService.updateProductLimit(user.id , res , -1 );
       return res.status(200).json({
         message: 'Product has been successfully deleted',
         product: deletedProduct,
