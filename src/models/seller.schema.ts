@@ -14,8 +14,9 @@ export const SellerSchema = new mongoose.Schema({
   zip: { type: String, required: true },
   type: { type: String, default: 'Starter' },
   generatedIncome: { type: Number, default: 0 },
-  status: { type: String, default: 'active' },
+  status: { type: String, default: 'notActive' },
   createdAt: { type: Date, default: Date.now },
+  productLimit: { type: Number, default: 0 },
   file: { type: String, required: true },
 });
 

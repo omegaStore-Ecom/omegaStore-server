@@ -20,9 +20,10 @@ import { editFileName, imageFileFilter } from 'src/utils/file-uploading.utils';
 import { diskStorage } from 'multer';
 import { CurrentUser, Roles, RolesGuard } from 'src/role/role.guard';
 import { Seller } from 'src/types/users';
+import {SellerService} from "../seller/sellerservice";
 @Controller('product')
 export class ProductController {
-  constructor(private readonly productService: ProductService) {}
+  constructor(private readonly productService: ProductService, private sellerService: SellerService) {}
 
   @Post()
   @UseInterceptors(
@@ -34,8 +35,15 @@ export class ProductController {
       fileFilter: imageFileFilter,
     }),
   )
-  create(@Body() product, @Res() res, @UploadedFiles() images) {
-    return this.productService.createProduct(product, res, images);
+  async create(@Body() product, @Res() res, @UploadedFiles() images , @CurrentUser() user) {
+    if (!user) return res.status(401).json({message: 'You must be logged in to create a product'});
+    const currentUser : Seller = await this.sellerService.findOne(user.id)
+    if(currentUser.status === 'notActivate') return res.status(401).json({message: 'Your account is pending'});
+
+    if(currentUser.productLimit > 10 && currentUser.type === 'Starter') return res.status(401).json({message: 'You have reached your product limit'});
+    if(currentUser.productLimit > 50  && currentUser.type === 'Pro') return res.status(401).json({message: 'You have reached your product limit'});
+
+    return this.productService.createProduct(product, res, images , currentUser);
   }
 
   @Get()

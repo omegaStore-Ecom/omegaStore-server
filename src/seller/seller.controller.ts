@@ -28,8 +28,6 @@ export class SellerController {
   constructor(private readonly sellerService: SellerService) {}
 
   @Post('register')
-  @Roles('GAdmin')
-  @UseGuards(RolesGuard)
   @UseInterceptors(
     FilesInterceptor('files', 1, {
       storage: diskStorage({
@@ -50,6 +48,9 @@ export class SellerController {
       email: Seller.email,
       role: Seller.role,
       type: Seller.type,
+      productLimit: Seller.productLimit,
+      status: Seller.status,
+      generatedIncome: Seller.generatedIncome,
     };
 
     const token = await this.signPayload(payload);
@@ -64,6 +65,9 @@ export class SellerController {
       email: Seller.email,
       role: Seller.role,
       type: Seller.type,
+      productLimit: Seller.productLimit,
+      status: Seller.status,
+      generatedIncome: Seller.generatedIncome,
     };
     const token = await this.signPayload(payload);
     return { Seller, token };

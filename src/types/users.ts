@@ -47,5 +47,6 @@ export interface Seller extends Document {
   status: string;
   file: string;
   type: string;
-  generatedIncome: string;
+  generatedIncome: number;
+  productLimit: number;
 }

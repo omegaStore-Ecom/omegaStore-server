@@ -1,19 +1,26 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { use } from 'passport';
 import { Product } from 'src/types/product';
+import { SellerService } from './../seller/sellerservice';
 @Injectable()
 export class ProductService {
-  constructor(@InjectModel('Product') private ProductModule: Model<Product>) {}
+  constructor(
+    @InjectModel('Product') private ProductModule: Model<Product>,
+    private sellerService: SellerService,
+  ) {}
 
-  async createProduct(product, res, images) {
+  async createProduct(product, res, images, user) {
     try {
       const createdProduct = new this.ProductModule(product);
       createdProduct.productImage = images.map(image => image.filename);
       await createdProduct.save();
+      await this.sellerService.updateProductLimit(user.id , res , 1 );
       return res.status(201).json({
-        message: 'Product has been successfully created',
+        message: 'Product has been successfully created ',
         product: createdProduct,
+        currentUser: user.productLimit
       });
     } catch (error) {
       return res.status(400).json({
