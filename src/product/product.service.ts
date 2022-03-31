@@ -72,6 +72,8 @@ export class ProductService {
     }
   }
 
+
+
   async updateProductImage(id, images, res) {
     try {
       const updatedProduct = await this.ProductModule.findByIdAndUpdate(

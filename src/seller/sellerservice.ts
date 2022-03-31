@@ -60,7 +60,6 @@ export class SellerService {
           {$inc: {productLimit: inc}},
           {new: true},
       );
-
   }
 
   async disableSeller(id, res) {
