@@ -66,7 +66,6 @@ export class ProductService {
         product,
         { new: true },
       );
-      console.log(updatedProduct, 'ppppppppppppppppppppppp');
       return res.status(200).json({
         message: 'Product has been successfully updated',
         product: updatedProduct,
