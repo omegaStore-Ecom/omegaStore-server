@@ -30,6 +30,7 @@ export class AdminController {
     const Admin = await this.adminService.findByLogin(loginDTO);
     const payload = {
       email: Admin.email,
+      role: Admin.role,
     };
     const token = await this.signPayload(payload);
     return { Admin, token };
