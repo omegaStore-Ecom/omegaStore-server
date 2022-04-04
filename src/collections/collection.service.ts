@@ -14,6 +14,7 @@ export class CollectionService {
   async createCollection(collection, res, images, user) {
     try {
       const createdCollection = new this.CollectionModule(collection);
+      createdCollection.collectionImage = images.filename;
       createdCollection.collectionOwner = user.id;
       await createdCollection.save();
       await this.sellerService.updateProductLimit(user.id, res, 1);
