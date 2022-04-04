@@ -1,24 +1,50 @@
 import * as mongoose from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 
-export const SellerSchema = new mongoose.Schema({
-  firstName: { type: String, required: true },
-  password: { type: String, required: true },
-  email: { type: String, required: true },
-  role: { type: String, default: 'seller' },
-  lastName: { type: String, required: true },
-  phone: { type: String, required: true },
-  address: { type: String, required: true },
-  city: { type: String, required: true },
-  state: { type: String, required: true },
-  zip: { type: String, required: true },
-  type: { type: String, default: 'Starter' },
-  generatedIncome: { type: Number, default: 0 },
-  status: { type: String, default: 'notActive' },
-  createdAt: { type: Date, default: Date.now },
-  productLimit: { type: Number, default: 0 },
-  file: { type: String, required: true },
-});
+export type SellerDocument = Seller & Document;
+
+@Schema()
+export class Seller {
+  @Prop({ required: true })
+  firstName: string;
+
+  @Prop({ required: true })
+  lastName: string;
+
+  @Prop({ required: true })
+  email: string;
+
+  @Prop({ required: true })
+  password: string;
+
+  @Prop({ required: true })
+  phone: string;
+
+  @Prop({ type: Number, default: 0 })
+  generatedIncome: string;
+
+  @Prop({ type: Number, default: 0 })
+  productLimit: string;
+
+  @Prop({ type: String, default: 'seller' })
+  role: string;
+
+  @Prop({ type: String, default: 'Starter' })
+  type: string;
+
+  @Prop({ required: true })
+  file: string;
+
+  @Prop({ default: Date.now })
+  createdAt: Date;
+
+  @Prop({ type: String, default: 'notActive' })
+  status: string;
+}
+
+export const SellerSchema = SchemaFactory.createForClass(Seller);
 
 SellerSchema.pre('save', async function(next: mongoose.HookNextFunction) {
   try {

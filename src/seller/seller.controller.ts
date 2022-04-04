@@ -55,6 +55,8 @@ export class SellerController {
 
     const token = await this.signPayload(payload);
     return { Seller, token };
+
+    
   }
 
   @Post('login')

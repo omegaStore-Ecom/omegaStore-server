@@ -1,18 +1,42 @@
-import * as mongoose from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Types } from 'mongoose';
+import { Category } from './category.schema';
+import { Brand } from './brand.schema';
+import { Seller } from './seller.schema';
 
-export const ProductSchema = new mongoose.Schema({
-  productName: { type: String, required: true },
-  productDescription: { type: String, required: true },
-  productPrice: { type: Number, required: true },
-  productImage: [
-    {
-      type: String,
-    },
-  ],
-  productCategory: { type: String, required: true },
-  productQuantity: { type: Number, required: true },
-  productSeller: { type: String, required: true },
-  productStatus: { type: String, default: 'Available' },
-  productCreatedAt: { type: Date, default: Date.now },
-  productBrand: { type: String, required: true },
-});
+export type ProductDocument = Product & Document;
+
+@Schema()
+export class Product {
+  @Prop({ required: true })
+  productName: string;
+
+  @Prop({ required: true })
+  productDescription: string;
+
+  @Prop({ required: true })
+  productQuantity: number;
+
+  @Prop({ required: true })
+  productPrice: number;
+
+  @Prop({ default: 'Available' })
+  productStatus: string;
+
+  @Prop({ default: Date.now })
+  productCreatedAt: Date;
+
+  @Prop({ required: true })
+  productImage: [string];
+
+  @Prop({ type: Types.ObjectId, ref: Category.name })
+  productCategory?: Category;
+
+  @Prop({ type: Types.ObjectId, ref: Brand.name })
+  productBrand: Brand;
+
+  @Prop({ type: Types.ObjectId, ref: Seller.name })
+  productSeller: Seller;
+}
+
+export const ProductSchema = SchemaFactory.createForClass(Product);

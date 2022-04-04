@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { use } from 'passport';
 import { Product } from 'src/types/product';
+// import { Product } from '../models/product.schema';
 import { SellerService } from './../seller/sellerservice';
 @Injectable()
 export class ProductService {
