@@ -20,6 +20,7 @@ import { editFileName, imageFileFilter } from 'src/utils/file-uploading.utils';
 import { diskStorage } from 'multer';
 import { CurrentUser, Roles, RolesGuard } from 'src/role/role.guard';
 import { Seller } from 'src/types/users';
+// import { Seller } from '../models/seller.schema';
 import {SellerService} from "../seller/sellerservice";
 @Controller('product')
 export class ProductController {

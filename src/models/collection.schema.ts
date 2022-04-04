@@ -1,10 +1,29 @@
 import * as mongoose from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
+import { Seller } from './seller.schema';
 
-export const ProductSchema = new mongoose.Schema({
-  collectionName: { type: String, required: true },
-  collectionDescription: { type: String, required: true },
-  status: { type: String, default: 'active' },
-  collectionOwner: { type: String, required: true },
-  collectionImage: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now },
-});
+export type CollectionDocument = Collection & Document;
+
+@Schema()
+export class Collection {
+  @Prop({ required: true })
+  collectionName: string;
+
+  @Prop()
+  collectionDescription: string;
+
+  @Prop({ required: true, default: 'active' })
+  status: string;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Seller' })
+  collectionOwner: Seller;
+
+  @Prop()
+  collectionImage: string;
+
+  @Prop({ type: Number, default: 0 })
+  createdAt: string;
+}
+
+export const CollectionSchema = SchemaFactory.createForClass(Collection);

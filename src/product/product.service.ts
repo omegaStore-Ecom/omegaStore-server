@@ -16,6 +16,7 @@ export class ProductService {
     try {
       const createdProduct = new this.ProductModule(product);
       createdProduct.productImage = images.map(image => image.filename);
+      createdProduct.productSeller = user.id;
       await createdProduct.save();
       await this.sellerService.updateProductLimit(user.id , res , 1 );
       return res.status(201).json({
