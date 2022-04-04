@@ -13,8 +13,8 @@ export class Collection {
   @Prop()
   collectionDescription: string;
 
-  @Prop({ required: true, default: 'active' })
-  status: string;
+  @Prop({ default: 'active' })
+  collectionStatus: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Seller' })
   collectionOwner: Seller;
