@@ -22,19 +22,19 @@ export class DeliveryMenService {
       );
     }
     const createdDeliveryMan = new this.DeliveryMenModel(DeliveryMan);
+    createdDeliveryMan.password = Math.random()
+      .toString(36)
+      .substring(2, 15);
     await createdDeliveryMan.save();
     return this.sanitizeAdmin(createdDeliveryMan);
   }
 
-  async findAll(res) {
-    try {
-      const deliverymen = await this.DeliveryMenModel.find();
-      return res.status(HttpStatus.OK).json({
-        deliverymen,
-      });
-    } catch (error) {
-      return res.status(400).json({ error: error.message });
-    }
+  async findAll() {
+    return await this.DeliveryMenModel.find();
+  }
+
+  async findOne(id) {
+    return await this.DeliveryMenModel.findById(id);
   }
 
   async update(id, deliveryMan, res) {
@@ -54,13 +54,29 @@ export class DeliveryMenService {
 
   async disableDeliveryMan(id, res) {
     try {
-      const updatedDeliveryMan = await this.DeliveryMenModel.findOneAndUpdate(id, {
-        $set: {
-          firstName: 'disabled',
+      const updatedDeliveryMan = await this.DeliveryMenModel.findOneAndUpdate(
+        id,
+        {
+          $set: {
+            firstName: 'disabled',
+          },
         },
-      });
+      );
       return res.status(HttpStatus.OK).json({
         updatedDeliveryMan,
+      });
+    } catch (error) {
+      return res.status(400).json({ error: error.message });
+    }
+  }
+
+  async deleteDeliveryMan(id, res) {
+    try {
+      const deletedDeliveryMan = await this.DeliveryMenModel.findByIdAndRemove(
+        id,
+      );
+      return res.status(HttpStatus.OK).json({
+        deletedDeliveryMan,
       });
     } catch (error) {
       return res.status(400).json({ error: error.message });

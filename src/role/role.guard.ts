@@ -2,14 +2,12 @@ import {
   CanActivate,
   createParamDecorator,
   ExecutionContext,
-  ForbiddenException,
   Injectable,
   SetMetadata,
   UnauthorizedException,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { verify } from 'jsonwebtoken';
-import { Seller } from 'src/types/users';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
