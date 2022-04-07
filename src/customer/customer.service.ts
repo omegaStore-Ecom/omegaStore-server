@@ -17,7 +17,7 @@ export class CustomerService {
     const Customer = await this.CustomerModel.findOne({ email });
     if (Customer) {
       throw new HttpException(
-        'deliveryMan already exists',
+        'customer already exists',
         HttpStatus.BAD_REQUEST,
       );
     }

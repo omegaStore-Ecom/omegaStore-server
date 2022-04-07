@@ -1,10 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
-import { Category } from './category.schema';
-import { Brand } from './brand.schema';
 import { Seller } from './seller.schema';
 import { Collection } from './collection.schema';
+
 
 export type ProductDocument = Product & Document;
 
@@ -31,17 +30,17 @@ export class Product {
   @Prop({ required: true })
   productImage: [string];
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Category.name })
-  productCategory?: Category;
+  @Prop({ require: true })
+  productCategory: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Brand.name })
-  productBrand: Brand;
+  @Prop({ require: true })
+  productBrand: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Seller' })
   productSeller: Seller;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Collection.name })
-  productCollection: Collection;
+  @Prop({ })
+  productCollection: string;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);

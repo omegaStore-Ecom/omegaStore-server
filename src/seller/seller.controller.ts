@@ -29,7 +29,7 @@ export class SellerController {
 
   @Post('register')
   @UseInterceptors(
-    FilesInterceptor('files', 1, {
+    FilesInterceptor('file', 1, {
       storage: diskStorage({
         destination: './upload/sellerFiles',
         filename: editFileName,
