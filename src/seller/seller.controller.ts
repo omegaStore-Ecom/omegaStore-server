@@ -31,7 +31,7 @@ export class SellerController {
   @UseInterceptors(
     FilesInterceptor('file', 1, {
       storage: diskStorage({
-        destination: './upload/sellerFiles',
+        destination: './upload/seller',
         filename: editFileName,
       }),
       fileFilter: fileFilter,
