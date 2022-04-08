@@ -25,10 +25,10 @@ export class SellerService {
 
   async findAll(res) {
     try {
-      const deliverymen = await this.SellerModel.find();
-      return res.status(HttpStatus.OK).json({
-        deliverymen,
-      });
+      const seller = await this.SellerModel.find();
+      return res.status(HttpStatus.OK).json(
+        seller
+      );
     } catch (error) {
       return res.status(400).json({ error: error.message });
     }
@@ -64,14 +64,15 @@ export class SellerService {
 
   async disableSeller(id, res) {
     try {
+      const seller = await  this.findOne(id);
       const updatedSeller = await this.SellerModel.findOneAndUpdate(id, {
         $set: {
-          firstName: 'disabled',
+          status: !seller.status,
         },
       });
-      return res.status(HttpStatus.OK).json({
-        updatedSeller,
-      });
+      return res.status(HttpStatus.OK).json(
+        updatedSeller
+      );
     } catch (error) {
       return res.status(400).json({ error: error.message });
     }

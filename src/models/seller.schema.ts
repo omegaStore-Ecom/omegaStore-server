@@ -40,8 +40,8 @@ export class Seller {
   @Prop({ default: Date.now })
   createdAt: Date;
 
-  @Prop({ type: String, default: 'notActive' })
-  status: string;
+  @Prop({  default: false })
+  status: boolean;
 }
 
 export const SellerSchema = SchemaFactory.createForClass(Seller);
