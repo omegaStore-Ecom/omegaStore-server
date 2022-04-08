@@ -82,8 +82,8 @@ export class SellerController {
   // crud
 
   @Get()
-  @Roles('GAdmin')
-  @UseGuards(RolesGuard)
+  // @Roles('GAdmin')
+  // @UseGuards(RolesGuard)
   async getALLSeller(@Res() res) {
     return this.sellerService.findAll(res);
   }
@@ -97,7 +97,7 @@ export class SellerController {
     return this.sellerService.update(id, seller, res);
   }
 
-  @Put(':id')
+  @Put('disable/:id')
   async disableSeller(@Res() res, @Param('id') id: string) {
     return this.sellerService.disableSeller(id, res);
   }

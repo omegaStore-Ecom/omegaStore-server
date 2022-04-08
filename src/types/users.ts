@@ -41,7 +41,7 @@ export interface Seller extends Document {
   role: string;
   address: string;
   city: string;
-  state: string;
+  state: boolean;
   zip: string;
   country: string;
   status: string;
