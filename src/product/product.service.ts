@@ -35,7 +35,7 @@ export class ProductService {
     try {
       const products = await this.ProductModule.find();
       return res.status(200).json(
-        products
+        products,
       );
     } catch (error) {
       return res.status(400).json({ error: error.message });
