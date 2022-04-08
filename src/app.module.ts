@@ -17,6 +17,7 @@ import { CollectionModule } from './collections/collection.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
+
     MongooseModule.forRoot(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
