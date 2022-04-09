@@ -88,6 +88,13 @@ export class SellerController {
     return this.sellerService.findAll(res);
   }
 
+  @Get(':id')
+  // @Roles('GAdmin')
+  // @UseGuards(RolesGuard)
+  async getSellerById(@Param('id') id: string,) {
+    return this.sellerService.findOne(id);
+  }
+
   @Put(':id')
   async updateSeller(
     @Body() seller: Seller,
