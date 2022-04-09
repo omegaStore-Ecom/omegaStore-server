@@ -3437,8 +3437,8 @@
         "affectsGlobalScope": true
       },
       "../node_modules/@types/json-schema/index.d.ts": {
-        "version": "d38e588a10943bbab1d4ce03d94759bf065ff802a9a72fc57aa75a72f1725b71",
-        "signature": "d38e588a10943bbab1d4ce03d94759bf065ff802a9a72fc57aa75a72f1725b71",
+        "version": "f3e604694b624fa3f83f6684185452992088f5efb2cf136b62474aa106d6f1b6",
+        "signature": "f3e604694b624fa3f83f6684185452992088f5efb2cf136b62474aa106d6f1b6",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/estree/index.d.ts": {
