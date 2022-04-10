@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 import { use } from 'passport';
 import { Product } from 'src/types/product';
 // import { Product } from '../models/product.schema';
-import { SellerService } from './../seller/sellerservice';
+import { SellerService } from '../seller/sellerservice';
 @Injectable()
 export class ProductService {
   constructor(
@@ -12,10 +12,10 @@ export class ProductService {
     private sellerService: SellerService,
   ) {}
 
-  async createProduct(product, res, images, user) {
+  async createProduct(product, res, user) {
     try {
       const createdProduct = new this.ProductModule(product);
-      createdProduct.productImage = images.map(image => image.filename);
+      // createdProduct.productImage = images.map(image => image.filename);
       createdProduct.productSeller = user.id;
       await createdProduct.save();
       await this.sellerService.updateProductLimit(user.id, res, 1);

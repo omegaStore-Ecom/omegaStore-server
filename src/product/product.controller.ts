@@ -30,19 +30,19 @@ export class ProductController {
   ) {}
 
   @Post()
-  @UseInterceptors(
-    FilesInterceptor('productImage', 20, {
-      storage: diskStorage({
-        destination: './upload/product',
-        filename: editFileName,
-      }),
-      fileFilter: imageFileFilter,
-    }),
-  )
+  // @UseInterceptors(
+  //   FilesInterceptor('productImage', 20, {
+  //     storage: diskStorage({
+  //       destination: './upload/product',
+  //       filename: editFileName,
+  //     }),
+  //     fileFilter: imageFileFilter,
+  //   }),
+  // )
   async create(
     @Body() product,
     @Res() res,
-    @UploadedFiles() images,
+    // @UploadedFiles() images,
     @CurrentUser() user,
   ) {
     if (!user)
@@ -62,7 +62,7 @@ export class ProductController {
         .status(401)
         .json({ message: 'You have reached your product limit' });
 
-    return this.productService.createProduct(product, res, images, currentUser);
+    return this.productService.createProduct(product, res, currentUser);
   }
 
   @Get()
