@@ -27,7 +27,7 @@ export class Product {
   productCreatedAt: Date;
 
   @Prop({ required: true })
-  productImage: [string];
+  productImage: string;
 
   @Prop({ require: true })
   productCategory: string;
