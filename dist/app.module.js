@@ -11,7 +11,7 @@ const common_1 = require("@nestjs/common");
 const mongoose_module_1 = require("@nestjs/mongoose/dist/mongoose.module");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
-const Admin_module_1 = require("./admin/Admin.module");
+const admin_module_1 = require("./admin/admin.module");
 const config_1 = require("@nestjs/config");
 const general_admin_module_1 = require("./generalAdmin/general.admin.module");
 const deliveryMan_module_1 = require("./deliveryMan/deliveryMan.module");
@@ -38,7 +38,7 @@ AppModule = __decorate([
                     dest: './products/upload',
                 }),
             }),
-            Admin_module_1.AdminModule,
+            admin_module_1.AdminModule,
             general_admin_module_1.GeneralAdminModule,
             deliveryMan_module_1.DeliveryMenModule,
             customer_module_1.CustomerModule,

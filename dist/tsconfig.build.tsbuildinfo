@@ -1922,8 +1922,8 @@
         "affectsGlobalScope": false
       },
       "../src/admin/admin.controller.ts": {
-        "version": "1985516e647f5b98432455f29e1bfe53a95e03bd4a9ab635e70655f92bb79e4f",
-        "signature": "03504fd0eea47fe48bca32aca74fc015003c6181dbfc93ff0db312b631efcb43",
+        "version": "0b0cb3a644386515994951afbb250a70210e685ede7b6c61e4dc0cafe4025bb3",
+        "signature": "7fdfde0b189a656c4611bdf54e7d9472042e533eeff30bab6f1558ffaa36e137",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/passport-strategy/index.d.ts": {
@@ -1937,12 +1937,12 @@
         "affectsGlobalScope": false
       },
       "../src/admin/jwt.strategy.ts": {
-        "version": "fff6051849a62b65cb9ec5b2350ba2cba925f72e4c7539d12458040b29d3b91f",
-        "signature": "f48c0fbc763744439ddc9bb3830de5b562ec9bb61df645ee6e7aa837155d1cad",
+        "version": "c9deb8d0415ab3688cc02220a8e462474a99526e62bffcdba00b1e09e56a3963",
+        "signature": "67ee479c64fd9f763f9c202408470c7cf35f1f15e496bc2a463259a6c0c15f0d",
         "affectsGlobalScope": false
       },
       "../src/admin/admin.module.ts": {
-        "version": "c147abff9392e609ee45bf5a3b9e293ac2577e4529eac6d2ae1c7bd5478b6689",
+        "version": "53ffcae0d8cffbd640a94945e98b2f306cc6525021729e1d563fd521027640c0",
         "signature": "c449d1d303e8e724fb278db06b787aa8d284b075dbc8283516087957a1885489",
         "affectsGlobalScope": false
       },
@@ -2267,7 +2267,7 @@
         "affectsGlobalScope": false
       },
       "../src/app.module.ts": {
-        "version": "28683f4fbedcb6b74d2fc6cf7cfcdd0896faf6f3dd83cc83f077456d05813a61",
+        "version": "c7392d6ad826bcd8edb34d0fd1df9f3af6b95d7cee3a7867b2f4cbdc819eb046",
         "signature": "9fc7f7b6ad854404973b8cba8e6d883f758237991968e9a3965d716d46f1da88",
         "affectsGlobalScope": false
       },
@@ -3362,7 +3362,7 @@
         "affectsGlobalScope": false
       },
       "../src/main.ts": {
-        "version": "3003591b22a46db0048503423a56b309f5c819f365f0233eb993eda1568dd8c1",
+        "version": "14bd112b642fbce543c5582c5efb4153c15f30eacf8fbbab4c6bdbd4b589140d",
         "signature": "f761c91419d0a89422a0004ef1a92929dd4d2d5e5c16758654d8b0467d1998c6",
         "affectsGlobalScope": false
       },

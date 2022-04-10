@@ -8,9 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminModule = void 0;
 const common_1 = require("@nestjs/common");
-const Admin_service_1 = require("./Admin.service");
+const admin_service_1 = require("./admin.service");
 const mongoose_1 = require("@nestjs/mongoose");
-const Admin_schema_1 = require("../models/Admin.schema");
+const admin_schema_1 = require("../models/admin.schema");
 const admin_controller_1 = require("./admin.controller");
 const jwt_strategy_1 = require("./jwt.strategy");
 let AdminModule = class AdminModule {
@@ -18,11 +18,11 @@ let AdminModule = class AdminModule {
 AdminModule = __decorate([
     common_1.Module({
         imports: [
-            mongoose_1.MongooseModule.forFeature([{ name: 'Admin', schema: Admin_schema_1.AdminSchema }]),
+            mongoose_1.MongooseModule.forFeature([{ name: 'Admin', schema: admin_schema_1.AdminSchema }]),
         ],
-        providers: [Admin_service_1.AdminService, jwt_strategy_1.JwtStrategy],
+        providers: [admin_service_1.AdminService, jwt_strategy_1.JwtStrategy],
         controllers: [admin_controller_1.AdminController],
     })
 ], AdminModule);
 exports.AdminModule = AdminModule;
-//# sourceMappingURL=Admin.module.js.map
+//# sourceMappingURL=admin.module.js.map
