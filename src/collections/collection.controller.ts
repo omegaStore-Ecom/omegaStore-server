@@ -89,7 +89,7 @@ export class CollectionController {
   @UseInterceptors(
     FileInterceptor('collectionImage', {
       storage: diskStorage({
-        destination: './upload/productImg',
+        destination: './upload/product',
         filename: editFileName,
       }),
       fileFilter: imageFileFilter,
