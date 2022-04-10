@@ -4,7 +4,6 @@ import { Document } from 'mongoose';
 import { Seller } from './seller.schema';
 import { Collection } from './collection.schema';
 
-
 export type ProductDocument = Product & Document;
 
 @Schema()
@@ -39,7 +38,7 @@ export class Product {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Seller' })
   productSeller: Seller;
 
-  @Prop({ })
+  @Prop({})
   productCollection: string;
 }
 

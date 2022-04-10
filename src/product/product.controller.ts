@@ -21,10 +21,13 @@ import { diskStorage } from 'multer';
 import { CurrentUser, Roles, RolesGuard } from 'src/role/role.guard';
 import { Seller } from 'src/types/users';
 // import { Seller } from '../models/seller.schema';
-import {SellerService} from "../seller/sellerservice";
+import { SellerService } from '../seller/sellerservice';
 @Controller('product')
 export class ProductController {
-  constructor(private readonly productService: ProductService, private sellerService: SellerService) {}
+  constructor(
+    private readonly productService: ProductService,
+    private sellerService: SellerService,
+  ) {}
 
   @Post()
   @UseInterceptors(
@@ -36,15 +39,30 @@ export class ProductController {
       fileFilter: imageFileFilter,
     }),
   )
-  async create(@Body() product, @Res() res, @UploadedFiles() images , @CurrentUser() user) {
-    if (!user) return res.status(401).json({message: 'You must be logged in to create a product'});
-    const currentUser : Seller = await this.sellerService.findOne(user.id)
-    if(currentUser.status === 'notActivate') return res.status(401).json({message: 'Your account is pending'});
+  async create(
+    @Body() product,
+    @Res() res,
+    @UploadedFiles() images,
+    @CurrentUser() user,
+  ) {
+    if (!user)
+      return res
+        .status(401)
+        .json({ message: 'You must be logged in to create a product' });
+    const currentUser: Seller = await this.sellerService.findOne(user.id);
+    if (currentUser.status === 'notActivate')
+      return res.status(401).json({ message: 'Your account is pending' });
 
-    if(currentUser.productLimit > 10 && currentUser.type === 'Starter') return res.status(401).json({message: 'You have reached your product limit'});
-    if(currentUser.productLimit > 50  && currentUser.type === 'Pro') return res.status(401).json({message: 'You have reached your product limit'});
+    if (currentUser.productLimit > 10 && currentUser.type === 'Starter')
+      return res
+        .status(401)
+        .json({ message: 'You have reached your product limit' });
+    if (currentUser.productLimit > 50 && currentUser.type === 'Pro')
+      return res
+        .status(401)
+        .json({ message: 'You have reached your product limit' });
 
-    return this.productService.createProduct(product, res, images , currentUser);
+    return this.productService.createProduct(product, res, images, currentUser);
   }
 
   @Get()
@@ -75,7 +93,7 @@ export class ProductController {
   @UseInterceptors(
     FilesInterceptor('productImage', 20, {
       storage: diskStorage({
-        destination: './upload/productImg',
+        destination: './upload/product',
         filename: editFileName,
       }),
       fileFilter: imageFileFilter,
@@ -90,7 +108,7 @@ export class ProductController {
   }
 
   @Delete(':id')
-  async delete(@Res() res, @Param('id') id: string , @CurrentUser() user) {
+  async delete(@Res() res, @Param('id') id: string, @CurrentUser() user) {
     return await this.productService.deleteProduct(id, res, user);
   }
 }

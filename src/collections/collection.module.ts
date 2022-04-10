@@ -7,7 +7,9 @@ import { SellerModule } from 'src/seller/seller.module';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: 'Collection', schema: CollectionSchema }]),
+    MongooseModule.forFeature([
+      { name: 'Collection', schema: CollectionSchema },
+    ]),
     SellerModule,
   ],
   providers: [CollectionService],

@@ -33,9 +33,9 @@ export class CollectionService {
   async findAll(res) {
     try {
       const collections = await this.CollectionModule.find();
-      return res.status(200).json({
+      return res.status(200).json(
         collections,
-      });
+      );
     } catch (error) {
       return res.status(400).json({ error: error.message });
     }

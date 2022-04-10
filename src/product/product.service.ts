@@ -18,11 +18,11 @@ export class ProductService {
       createdProduct.productImage = images.map(image => image.filename);
       createdProduct.productSeller = user.id;
       await createdProduct.save();
-      await this.sellerService.updateProductLimit(user.id , res , 1 );
+      await this.sellerService.updateProductLimit(user.id, res, 1);
       return res.status(201).json({
         message: 'Product has been successfully created ',
         product: createdProduct,
-        currentUser: user.productLimit
+        currentUser: user.productLimit,
       });
     } catch (error) {
       return res.status(400).json({
@@ -34,9 +34,7 @@ export class ProductService {
   async findAll(res) {
     try {
       const products = await this.ProductModule.find();
-      return res.status(200).json(
-        products,
-      );
+      return res.status(200).json(products);
     } catch (error) {
       return res.status(400).json({ error: error.message });
     }
@@ -46,7 +44,7 @@ export class ProductService {
     try {
       const product = await this.ProductModule.findById(id);
       if (!product) {
-         res.status(404).json({
+        res.status(404).json({
           message: 'Product not found',
         });
       }
@@ -75,8 +73,6 @@ export class ProductService {
     }
   }
 
-
-
   async updateProductImage(id, images, res) {
     try {
       const updatedProduct = await this.ProductModule.findByIdAndUpdate(
@@ -97,10 +93,10 @@ export class ProductService {
     }
   }
 
-  async deleteProduct(id, res , user) {
+  async deleteProduct(id, res, user) {
     try {
       const deletedProduct = await this.ProductModule.findByIdAndDelete(id);
-      await this.sellerService.updateProductLimit(user.id , res , -1 );
+      await this.sellerService.updateProductLimit(user.id, res, -1);
       return res.status(200).json({
         message: 'Product has been successfully deleted',
         product: deletedProduct,
