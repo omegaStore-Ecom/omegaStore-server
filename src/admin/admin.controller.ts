@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { AdminService } from './Admin.service';
+import { AdminService } from './admin.service';
 import { Roles, RolesGuard } from './../role/role.guard';
 import { RegisterDTO } from './register.dto';
 import { Payload } from 'src/types/payload';

@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose/dist/mongoose.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AdminModule } from './admin/Admin.module';
+import { AdminModule } from './admin/admin.module';
 import { ConfigModule } from '@nestjs/config';
 import { GeneralAdminModule } from './generalAdmin/general.admin.module';
 import { DeliveryMenModule } from './deliveryMan/deliveryMan.module';
