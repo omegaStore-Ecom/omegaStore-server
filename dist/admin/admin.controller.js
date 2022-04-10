@@ -14,7 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminController = void 0;
 const common_1 = require("@nestjs/common");
-const Admin_service_1 = require("./Admin.service");
+const admin_service_1 = require("./admin.service");
 const role_guard_1 = require("./../role/role.guard");
 const payload_1 = require("../types/payload");
 const jsonwebtoken_1 = require("jsonwebtoken");
@@ -62,7 +62,7 @@ __decorate([
 ], AdminController.prototype, "login", null);
 AdminController = __decorate([
     common_1.Controller('admin'),
-    __metadata("design:paramtypes", [Admin_service_1.AdminService])
+    __metadata("design:paramtypes", [admin_service_1.AdminService])
 ], AdminController);
 exports.AdminController = AdminController;
 //# sourceMappingURL=admin.controller.js.map

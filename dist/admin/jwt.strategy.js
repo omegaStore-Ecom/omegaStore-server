@@ -14,7 +14,7 @@ const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 const passport_jwt_1 = require("passport-jwt");
 const passport_jwt_2 = require("passport-jwt");
-const Admin_service_1 = require("./Admin.service");
+const admin_service_1 = require("./admin.service");
 let JwtStrategy = class JwtStrategy extends passport_1.PassportStrategy(passport_jwt_2.Strategy) {
     constructor(adminService) {
         super({
@@ -33,7 +33,7 @@ let JwtStrategy = class JwtStrategy extends passport_1.PassportStrategy(passport
 };
 JwtStrategy = __decorate([
     common_1.Injectable(),
-    __metadata("design:paramtypes", [Admin_service_1.AdminService])
+    __metadata("design:paramtypes", [admin_service_1.AdminService])
 ], JwtStrategy);
 exports.JwtStrategy = JwtStrategy;
 //# sourceMappingURL=jwt.strategy.js.map
