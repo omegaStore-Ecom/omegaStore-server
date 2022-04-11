@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import {Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AdminService } from './admin.service';
 import { Roles, RolesGuard } from './../role/role.guard';
@@ -12,8 +12,8 @@ export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
   @Post('register')
-  @Roles('GAdmin')
-  @UseGuards(RolesGuard)
+  // @Roles('GAdmin')
+  // @UseGuards(RolesGuard)
   async register(@Body() registerDTO: RegisterDTO) {
     const Admin = await this.adminService.create(registerDTO);
     const payload = {
@@ -34,6 +34,26 @@ export class AdminController {
     };
     const token = await this.signPayload(payload);
     return { Admin, token };
+  }
+
+  @Get()
+  async getAllAdmins(@Req() req: Payload) {
+    return this.adminService.findAll();
+  }
+
+  @Get(':id')
+  async getAdmin(@Param('id') id: string) {
+    return this.adminService.findOne(id);
+  }
+
+  @Put(':id')
+  async updateAdmin(@Param('id') id: string, @Body() admin: RegisterDTO) {
+    return this.adminService.update(id, admin);
+  }
+
+  @Delete(':id')
+  async deleteAdmin(@Param('id') id: string) {
+    return this.adminService.delete(id);
   }
 
   async signPayload(payload: Payload) {
