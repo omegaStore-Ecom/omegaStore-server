@@ -19,10 +19,15 @@ export class AdminService {
     }
 
     const createdAdmin = new this.AdminModel(RegisterDTO);
-
+    createdAdmin.password = "12345"
     await createdAdmin.save();
     return this.sanitizeAdmin(createdAdmin);
   }
+
+  async findAll(): Promise<Admin[]> {
+    return await this.AdminModel.find().exec();
+  }
+
   async findByPayload(payload: Payload) {
     const { email } = payload;
     return await this.AdminModel.findOne({ email });
@@ -52,4 +57,15 @@ export class AdminService {
   async validateAdmin(payload: Payload) {
     return await this.findByPayload(payload);
   }
+
+  async findOne(id : string) {
+    return this.AdminModel.findById(id);
+  }
+  async update(id: string, admin: RegisterDTO) {
+    return this.AdminModel.findByIdAndUpdate(id, admin, { new: true });
+  }
+  async delete(id: string) {
+    return this.AdminModel.findByIdAndDelete(id);
+  }
+
 }
