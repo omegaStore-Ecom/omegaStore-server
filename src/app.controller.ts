@@ -9,9 +9,4 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-
-  @Get('template')
-  sendTemplate(): any {
-    return this.appService.example2();
-  }
 }
